@@ -1,0 +1,169 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "My Social Media API",
+      "version": "1.0.0",
+      "description": "API documentation for a simple social media application"
+    },
+    "paths": {
+      "/api/users": {
+        "post": {
+          "summary": "Create a new user",
+          "tags": ["Users"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User created successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/posts": {
+        "post": {
+          "summary": "Create a new post",
+          "tags": ["Posts"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Post created successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/posts/{postId}/like": {
+        "post": {
+          "summary": "Like a post",
+          "tags": ["Posts"],
+          "parameters": [
+            {
+              "name": "postId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Post liked successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Post not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/posts/{postId}/comment": {
+        "post": {
+          "summary": "Comment on a post",
+          "tags": ["Posts"],
+          "parameters": [
+            {
+              "name": "postId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Comment added successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Post not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "UserInput": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            }
+          }
+        },
+        "PostInput": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            }
+          }
+        },
+        "CommentInput": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  
